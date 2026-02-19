@@ -1,0 +1,6258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context management with Claude Code and Cowork - a KM perspective</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/monokai.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    /* Base overrides for better rendering */
+    .reveal { font-family: 'Inter', sans-serif; }
+    .reveal section { position: relative; }
+    .reveal section img { max-width: 100%; height: auto; }
+    /* Grid slides: force full-size positioning context */
+    .reveal .slides section.has-grid {
+      height: 100% !important;
+      width: 100% !important;
+      top: 0 !important;
+      left: 0 !important;
+      display: block !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      overflow: hidden;
+    }
+    .reveal pre { width: 100%; }
+    .reveal pre code { max-height: 500px; }
+    /* Two/three column layout */
+    .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .three-columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; align-items: start; }
+    /* Mermaid container */
+    .mermaid { text-align: center; }
+    .mermaid svg { max-width: 100%; height: auto; }
+    /* Fragment list support */
+    .fragment-list li { opacity: 0; }
+    .fragment-list li.visible { opacity: 1; }
+    /* Details/summary for sources */
+    details { font-size: 0.6em; opacity: 0.7; margin-top: 0.5em; }
+    details summary { cursor: pointer; }
+    @media (max-width: 768px) {
+      .two-columns, .three-columns { grid-template-columns: 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section class="has-grid">
+
+<!-- Fond blanc pour toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Image illustrative à droite (si présente) -->
+<div class="image-block" style="position: absolute; box-sizing: border-box; width: 45%; height: 100%; left: 60%; top: 0%; padding: 0 0 0 0; text-align: right;">
+  <p><img src="assets/durer-celestial-map.jpg" alt=""></p>
+</div>
+
+<!-- Zone principale de contenu -->
+<div class="content-zone" style="position: absolute; box-sizing: border-box; width: 55%; height: 100%; left: 0%; top: 12%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre principal -->
+  <div class="main-title">
+    <h1>Context Management with Claude Code &amp; Cowork</h1>
+  </div>
+  
+  <!-- Sous-titre -->
+  <div class="subtitle">
+    <h2>How AI context files are transforming knowledge management</h2>
+  </div>
+  
+  <!-- Date et contexte -->
+  <div class="date-context">
+    <p>February 2026</p>
+  </div>
+
+
+
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 30%; height: 8%; left: 0%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <div class="author-name">Joël Gombin</div>
+</div>
+
+<!-- Source optionnelle en bas à droite --> 
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 70%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;"> 
+ 
+</div>
+
+
+
+<style>
+.image-block img, .slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.content-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%;
+  gap: clamp(8px, 2vw, 20px);
+  max-height: 75vh;
+  overflow: visible;
+  padding: 5px 0;
+  min-height: fit-content;
+}
+
+.main-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.0;
+  margin: 0;
+  letter-spacing: -0.02em;
+  max-width: 95%;
+  word-break: normal;
+  flex-shrink: 2;
+}
+
+.main-title h1, .main-title h2, .main-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+
+.subtitle {
+  color: #ea580c;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  max-width: 100%;
+  word-break: break-word;
+  flex-shrink: 1;
+}
+
+.date-context {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+  opacity: 0.8;
+  flex-shrink: 0;
+  min-height: 1.3em;
+  order: 3;
+}
+
+.signature {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  font-weight: 400;
+  line-height: 1.2;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans - PRIORITÉ à la date/contexte */
+@media (max-width: 768px) {
+  .content-zone {
+    gap: clamp(4px, 1.2vw, 12px);
+    max-height: 70vh;
+  }
+  
+  .main-title {
+    font-size: clamp(1.1rem, 4vw, 2rem);
+    line-height: 0.95;
+    flex-shrink: 2;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+    line-height: 1.1;
+    flex-shrink: 1;
+  }
+  
+  .date-context {
+    font-size: clamp(0.65rem, 2.2vw, 0.9rem);
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+  
+}
+
+/* Responsive pour très petits écrans - DATE EN PRIORITÉ ABSOLUE */
+@media (max-width: 480px) {
+  .content-zone {
+    gap: clamp(2px, 0.8vw, 8px);
+    max-height: 65vh;
+    justify-content: space-between;
+  }
+  
+  .main-title {
+    font-size: clamp(0.9rem, 4.5vw, 1.6rem);
+    line-height: 0.9;
+    flex-shrink: 3;
+  }
+  
+  
+  .subtitle {
+    font-size: clamp(0.65rem, 3vw, 0.95rem);
+    flex-shrink: 2;
+  }
+  
+  .date-context {
+    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+    flex-shrink: 0;
+    font-weight: 600;
+    opacity: 1;
+  }
+  
+}
+
+/* Gestion des débordements de hauteur critique - DATE TOUJOURS VISIBLE */
+@media (max-height: 600px) {
+  .content-zone {
+    max-height: 80vh;
+    gap: clamp(2px, 0.8vw, 6px);
+    justify-content: flex-start;
+    padding-top: 3vh;
+  }
+  
+  .main-title {
+    font-size: clamp(1rem, 3.5vw, 1.8rem);
+    line-height: 0.85;
+    flex-shrink: 3;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.7rem, 2.2vw, 1rem);
+    line-height: 1.0;
+    flex-shrink: 2;
+  }
+  
+  .date-context {
+    font-size: clamp(0.65rem, 2vw, 0.85rem);
+    flex-shrink: 0;
+    font-weight: 600;
+    opacity: 1;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>What we'll cover</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <ol>
+<li>Why managing AI context is actually a <strong>knowledge management</strong> challenge</li>
+<li>The tools: what they do, in plain terms</li>
+<li>How this applies to docs creation, search, structure, and consistency</li>
+<li>What to do first — practical steps for your team</li>
+</ol>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>The big idea</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p>For decades, knowledge management has struggled with one problem: <strong>getting people to write down what they know</strong>.</p>
+<p>AI context files solve this — not because people suddenly want to document, but because <strong>the AI doesn't work well without it</strong>.</p>
+<p>Writing context for AI is writing organizational knowledge. The incentive structure has finally aligned.</p>
+<blockquote>
+<p>"Think of CLAUDE.md as a README, but instead of being written for human developers joining your team, it's written for your AI pair programmer." — <a href="https://www.anthropic.com/engineering/claude-code-best-practices">Anthropic</a></p>
+</blockquote>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>From prompt engineering to context engineering</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><strong>Prompt engineering</strong> = crafting the right question each time.</p>
+<p><strong>Context engineering</strong> = building an environment so the AI <em>already understands</em> your standards, terminology, and workflows before you ask anything.</p>
+<p>The shift: from <strong>individual skill</strong> (writing good prompts) to <strong>organizational infrastructure</strong> (structured knowledge that persists).</p>
+<p><img src="assets/01-shift-context-engineering.png" style="width: 550px; max-width: 100%;" alt=""></p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p><a href="https://www.cio.com/article/4080592/context-engineering-improving-ai-by-moving-beyond-the-prompt.html">CIO, "Context engineering: improving AI by moving beyond the prompt" (Oct. 2025)</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Meet Sarah</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><strong>Sarah</strong> leads a documentation team of 8 people. They maintain 2,000+ pages across Notion and a docs site.</p>
+<p>Her challenges:
+- New writers take months to learn the team's conventions
+- Style and terminology drift across authors
+- Nobody reads the style guide anymore
+- Finding "what we decided about X" means searching Slack, emails, and old docs</p>
+<p>We'll follow Sarah throughout this talk to see how context management addresses each of these.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Four strategies for managing AI context</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="two-columns">
+<div>
+<h3>Capitalize</h3>
+<p>Write down what the team knows — conventions, glossaries, procedures — so the AI can reuse it</p>
+<h3>Target</h3>
+<p>Give the AI only the information relevant to the current task, not everything at once</p>
+</div>
+<div>
+<h3>Summarize</h3>
+<p>Condense long conversations and documents so the AI stays focused on what matters</p>
+<h3>Compartmentalize</h3>
+<p>Keep different topics in separate spaces so they don't interfere with each other</p>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Adapted from <a href="https://www.cio.com/article/4080592/context-engineering-improving-ai-by-moving-beyond-the-prompt.html">CIO, "Context engineering" (2025)</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>The toolbox: what's available</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="mermaid">
+graph TD
+    CC((AI Agent))
+    CC --> STATIC["Permanent knowledge"]
+    CC --> DYNAMIC["Learned knowledge"]
+    CC --> LIVE["Live connections"]
+    STATIC --> CM["Context files — your standards, conventions, rules"]
+    DYNAMIC --> MEM["Memory — patterns learned over time"]
+    DYNAMIC --> SK["Skills — step-by-step procedures"]
+    LIVE --> MCPN["Connectors — to Notion, Confluence, GitHub..."]
+    LIVE --> CONV["Conversation — your current task"]
+    style CC fill:#fff7ed,stroke:#ea580c,stroke-width:3px
+    style STATIC fill:#f0fdf4,stroke:#16a34a
+    style DYNAMIC fill:#eff6ff,stroke:#2563eb
+    style LIVE fill:#fff7ed,stroke:#ea580c
+    style CM fill:#f0fdf4,stroke:#16a34a
+    style MEM fill:#eff6ff,stroke:#2563eb
+    style SK fill:#eff6ff,stroke:#2563eb
+    style MCPN fill:#fff7ed,stroke:#ea580c
+    style CONV fill:#fff7ed,stroke:#ea580c
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p><a href="https://docs.anthropic.com/en/docs/claude-code/overview">Anthropic, Claude Code Docs</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Context files: your team's knowledge, always loaded</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p>Plain text files (called CLAUDE.md) that the AI reads automatically at the start of every session. Think of them as <strong>a style guide the AI actually follows</strong>.</p>
+<div class="mermaid">
+graph TD
+    G["Global rules — your personal preferences"] -->|always loaded| P["Project rules — this project's standards"]
+    P -->|loaded when needed| S1["Docs folder — writing conventions"]
+    P -->|loaded when needed| S2["API folder — technical doc rules"]
+    style G fill:#f3f4f6,stroke:#6b7280
+    style P fill:#fff7ed,stroke:#ea580c,stroke-width:2px
+    style S1 fill:#f0fdf4,stroke:#16a34a
+    style S2 fill:#eff6ff,stroke:#2563eb
+</div>
+
+<p>Different folders can have different rules. The AI applies the right ones depending on where it's working.</p>
+<p><strong>For Sarah</strong>: her new writers get the benefit of the team's accumulated knowledge from day one — because the AI already knows the rules.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p><a href="https://www.anthropic.com/engineering/claude-code-best-practices">Anthropic, Claude Code best practices</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>What belongs in a context file — for a docs team</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="two-columns">
+<div>
+<h3>Include</h3>
+<ul>
+<li>Your style guide essentials (tone, voice, formatting)</li>
+<li>Terminology: "We say X, never Y"</li>
+<li>Document structure rules (heading hierarchy, section order)</li>
+<li>Review workflow: who approves what</li>
+<li>Common commands to build/preview docs</li>
+</ul>
+</div>
+<div>
+<h3>Avoid</h3>
+<ul>
+<li>Anything a spell-checker can enforce</li>
+<li>Instructions longer than ~500 lines (the AI loses focus)</li>
+<li>Generic advice ("write clearly") — the AI already knows</li>
+<li>Rapidly changing info — use live connectors instead</li>
+</ul>
+</div>
+</div>
+<p><strong>Key insight</strong>: the act of writing these files forces teams to <strong>make tacit knowledge explicit</strong> — the exact challenge KM has faced for decades.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p><a href="https://www.anthropic.com/engineering/claude-code-best-practices">Anthropic, Claude Code best practices</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Memory &amp; Skills: learning and procedures</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="two-columns">
+<div>
+<h3>Memory — what the AI learns</h3>
+<p>The AI notices patterns and saves them: your naming conventions, your preferred phrasing, past decisions.</p>
+<p>This builds up over time — like onboarding a new team member who actually remembers everything.</p>
+<p><strong>For Sarah</strong>: "We decided in March to use 'user' not 'customer' in all docs" — the AI remembers, even months later.</p>
+</div>
+<div>
+<h3>Skills — step-by-step procedures</h3>
+<p>Reusable procedure guides the AI loads on demand. Each one describes <em>how</em> to do a specific task.</p>
+<p>Examples for a docs team:
+- "How to write a changelog entry"
+- "How to review a document for consistency"
+- "How to generate API reference docs"</p>
+<p><strong>For Sarah</strong>: instead of training each writer, she writes the procedure once. The AI follows it every time.</p>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p><a href="https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf">Anthropic, Building skills for Claude</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Connectors (MCP): linking to your existing tools</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p>The <strong>Model Context Protocol</strong> is an <a href="https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation">open standard under Linux Foundation governance</a> that lets AI tools connect to external systems — the same way USB lets any device plug into any computer.</p>
+<div class="mermaid">
+graph LR
+    AI[AI tools] --> CL[Universal connector]
+    CL --> S1["Notion, Confluence"]
+    CL --> S2["GitHub, GitLab"]
+    CL --> S3["Slack, Google Workspace"]
+    CL --> S4["Internal databases, APIs"]
+    style AI fill:#fff7ed,stroke:#ea580c,stroke-width:3px
+    style CL fill:#fff7ed,stroke:#ea580c
+    style S1 fill:#eff6ff,stroke:#2563eb
+    style S2 fill:#eff6ff,stroke:#2563eb
+    style S3 fill:#eff6ff,stroke:#2563eb
+    style S4 fill:#eff6ff,stroke:#2563eb
+</div>
+
+<p>Already supported: Notion, Confluence, GitHub, Slack, Google Workspace, Figma, and <a href="https://github.com/modelcontextprotocol">thousands more</a>.</p>
+<p><strong>For Sarah</strong>: the AI can search her Notion workspace, check the glossary in a spreadsheet, and pull code examples from GitHub — all without copy-pasting.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p><a href="https://github.com/modelcontextprotocol">MCP specification</a> · <a href="https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation">Agentic AI Foundation announcement</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Two tools, two audiences</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Claude Code</strong></th>
+<th><strong>Cowork</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Who it's for</strong></td>
+<td>Technical writers, doc engineers</td>
+<td>Content writers, KM managers</td>
+</tr>
+<tr>
+<td><strong>Interface</strong></td>
+<td>Command line (terminal)</td>
+<td>Desktop app with visual interface</td>
+</tr>
+<tr>
+<td><strong>Memory</strong></td>
+<td>Persistent — learns across sessions</td>
+<td>Per-session only (for now)</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Doc pipelines, automation, CI/CD</td>
+<td>Writing, reviewing, exploring</td>
+</tr>
+<tr>
+<td><strong>Context files</strong></td>
+<td>Full hierarchy with folder-level rules</td>
+<td>Global + folder instructions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sarah's team</strong>: content writers use <strong>Cowork</strong> daily for drafting and review. The doc engineer uses <strong>Claude Code</strong> to automate the publishing pipeline.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p><a href="https://www.anthropic.com/claude-code">Claude Code</a> · <a href="https://www.anthropic.com/cowork">Cowork</a></p>
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Applying this to documentation quality</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p>Sarah's audit question: <em>"How can AI tools improve docs creation, search, structure, consistency and readability?"</em></p>
+<div class="mermaid">
+graph LR
+    ROOT((Doc quality))
+    ROOT --> CR["Creation"]
+    ROOT --> SE["Search"]
+    ROOT --> ST["Structure"]
+    ROOT --> CO["Consistency"]
+    ROOT --> RE["Readability"]
+    style ROOT fill:#fff7ed,stroke:#ea580c,stroke-width:3px
+    style CR fill:#fff7ed,stroke:#ea580c
+    style SE fill:#eff6ff,stroke:#2563eb
+    style ST fill:#f0fdf4,stroke:#16a34a
+    style CO fill:#fef2f2,stroke:#ea580c
+    style RE fill:#f3f4f6,stroke:#6b7280
+</div>
+
+<p>Each dimension maps to specific mechanisms we've seen. Let's look at how.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Creation &amp; Structure</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="two-columns">
+<div>
+<h3>Creation</h3>
+<p><strong>Without context</strong>: each writer prompts the AI from scratch. Output varies wildly.</p>
+<p><strong>With context</strong>: the AI loads your style guide, templates, and glossary automatically. First drafts already follow your standards.</p>
+<p><strong>Sarah's setup</strong>:
+- Context file with style guide rules
+- One Skill per document type (user guide, API ref, changelog)
+- Connector to GitHub for live code examples</p>
+</div>
+<div>
+<h3>Structure</h3>
+<p><strong>Without context</strong>: the AI makes up its own document structure every time.</p>
+<p><strong>With context</strong>: heading hierarchy, section order, and depth limits are encoded in your rules. Different doc types follow different templates.</p>
+<p><strong>What to watch out for</strong>:
+- Don't encode rules that change monthly — use connectors for dynamic content
+- Start with 5 rules, not 50 — you can always add more
+- Test with a real document before rolling out</p>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Search, Consistency &amp; Readability</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="three-columns">
+<div>
+<h3>Search</h3>
+<p>Connect your knowledge base (Notion, Confluence) via connectors.</p>
+<p>Create a project space with your key references uploaded.</p>
+<p>Team members ask: <em>"Where's our doc on X?"</em> or <em>"What did we decide about Y?"</em></p>
+<p><strong>Result</strong>: unified search across tools + institutional memory</p>
+</div>
+<div>
+<h3>Consistency</h3>
+<p>Maintain a terminology glossary and reference it in your context file: <em>"Always use terms from our glossary."</em></p>
+<p>Create a "review for consistency" procedure as a Skill.</p>
+<p>The AI learns your team's specific patterns over time via Memory.</p>
+<p><strong>Result</strong>: consistency improves as the system learns</p>
+</div>
+<div>
+<h3>Readability</h3>
+<p>Define audience personas in your context file: <em>"Our users are non-technical. Use short sentences."</em></p>
+<p>Create a readability review procedure.</p>
+<p>Set automatic checks after each edit.</p>
+<p><strong>Result</strong>: measurable readability improvements</p>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Choosing your setup</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p>There's no one-size-fits-all. Here are three architectures matched to team profiles:</p>
+<h3>Small docs team, no developers</h3>
+<p><strong><a href="https://claude.ai">Claude.ai Projects</a> + <a href="https://www.anthropic.com/cowork">Cowork</a></strong> — Upload your style guide, create a shared project, start writing. No setup required beyond a subscription.</p>
+<h3>Mixed team (writers + developers)</h3>
+<p><strong>Cowork + <a href="https://www.anthropic.com/claude-code">Claude Code</a> + Connectors</strong> — Writers use Cowork for content, developers use Claude Code for automation. Connect to your tools via <a href="https://github.com/modelcontextprotocol">MCP</a>.</p>
+<h3>Large organization, publishing pipeline</h3>
+<p><strong>Claude Code + automated checks + custom connectors</strong> — Full automation: context files version-controlled in Git, automatic quality checks in your CI/CD pipeline, custom connectors to internal systems.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>The KM perspective: why this is historic</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p>Context files represent a <strong>new category of organizational knowledge artifact</strong>.</p>
+<div class="mermaid">
+graph LR
+    TK[Tacit knowledge] -.->|externalized into| CMD[Context files]
+    SG[Style guides] -.->|codified as| SKL[Procedures / Skills]
+    W[Wikis, Notion] -.->|connected via| MCPC[Live connectors]
+    CMD --- GIT[Version-controlled]
+    CMD --- MEMC[Self-improving via Memory]
+    style TK fill:#fef2f2,stroke:#dc2626
+    style W fill:#f3f4f6,stroke:#9ca3af
+    style SG fill:#f3f4f6,stroke:#9ca3af
+    style CMD fill:#f0fdf4,stroke:#16a34a
+    style SKL fill:#fff7ed,stroke:#ea580c
+    style MCPC fill:#eff6ff,stroke:#2563eb
+    style GIT fill:#fff7ed,stroke:#ea580c
+    style MEMC fill:#fff7ed,stroke:#ea580c
+</div>
+
+<p>For the first time, there is a <strong>direct business incentive</strong> to externalize tacit knowledge: <strong>the AI works better when you do</strong>. This aligns individual productivity with organizational knowledge capture.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Getting started: your first month</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="two-columns">
+<div>
+<h3>Week 1-2: Foundation</h3>
+<ul>
+<li>Write a context file with your <strong>5 most important style rules</strong> and your <strong>terminology glossary</strong></li>
+<li>Create a <a href="https://claude.ai">Claude.ai Project</a> and upload your style guide</li>
+<li>Test: ask the AI to draft a document you'd normally write yourself</li>
+</ul>
+<h3>Week 3-4: Procedures</h3>
+<ul>
+<li>Write <strong>one Skill</strong> for your most common document type</li>
+<li>Connect <strong>one external tool</strong> (Notion, Confluence, or GitHub)</li>
+<li>Have a second team member test the setup independently</li>
+</ul>
+</div>
+<div>
+<h3>Month 2: Expand</h3>
+<ul>
+<li>Add context files for different doc types (tutorials vs. API ref vs. guides)</li>
+<li>Create a "doc review" Skill</li>
+<li>Start using Memory — let the AI learn your patterns</li>
+</ul>
+<h3>Month 3+: Automate</h3>
+<ul>
+<li>Version-control your context files in Git</li>
+<li>Add automatic quality checks</li>
+<li>Audit and refine your context files quarterly — treat them like living documentation</li>
+</ul>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Key takeaways</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <ul>
+<li>
+<p><strong>Context is strategy, not a feature.</strong> The team that structures its AI context best gets qualitatively better results — not just faster output, but output that follows standards from the start.</p>
+</li>
+<li>
+<p><strong>Context files are a new kind of knowledge asset.</strong> They deserve the same governance as your style guide: versioned, reviewed, maintained.</p>
+</li>
+<li>
+<p><strong>The KM opportunity is real.</strong> Writing AI context forces the externalization of tacit knowledge. For the first time, there's a direct incentive to document what your team knows.</p>
+</li>
+<li>
+<p><strong>Start small, start now.</strong> Five style rules in a text file + a Claude.ai Project = your minimum viable setup. Everything else builds from there.</p>
+</li>
+</ul>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>What you can do Monday morning</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p>Three actions, no technical skills required:</p>
+<p><strong>1. Open <a href="https://claude.ai">Claude.ai</a> and create a Project for your docs team</strong>
+Upload your style guide and glossary as Project Knowledge.</p>
+<p><strong>2. Write 10 lines of context</strong>
+Your 5 non-negotiable style rules + 5 terminology choices ("We say X, never Y").</p>
+<p><strong>3. Test it with a real task</strong>
+Ask the AI to draft a document type you produce regularly. Compare the output with and without context.</p>
+<p>That's it. The rest is iteration.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+
+<!-- Fond blanc avec accent orange subtil -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Barre orange subtile en haut -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 3%; left: 0%; top: 0%; background-color: #ea580c;"></div>
+
+<!-- Conteneur principal centré -->
+<div class="contact-container" style="position: absolute; box-sizing: border-box; width: 80%; height: 80%; left: 10%; top: 10%; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+  <!-- Titre principal -->
+  <div class="contact-title">
+    Merci pour votre attention
+  </div>
+  
+  <!-- Nom principal -->
+  <div class="main-name">
+    Joël Gombin
+  </div>
+  
+  <!-- Contenu des contacts -->
+  <div class="contact-content">
+    <p><strong>Email :</strong> joel.gombin@gmail.com</p>
+<p><strong>LinkedIn :</strong> https://www.linkedin.com/in/jgombin/</p>
+  </div>
+  
+  <!-- Message de clôture optionnel -->
+  <div class="closing-message">
+    <p>Questions?</p>
+  </div>
+
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 10px 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>February 2026</p>
+</div>
+
+<style>
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  gap: clamp(20px, 4vw, 40px);
+}
+
+.contact-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.main-name {
+  color: #ea580c;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.contact-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.0rem, 2vw, 1.4rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 90%;
+}
+
+.contact-content p {
+  margin: 0.5em 0;
+}
+
+.contact-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 0.2s ease;
+}
+
+.contact-content a:hover {
+  border-bottom-color: #ea580c;
+}
+
+/* Styles pour les icônes et informations de contact */
+.contact-content .contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+}
+
+.contact-content .contact-item::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: #ea580c;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.closing-message {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+  font-style: italic;
+  opacity: 0.8;
+  max-width: 80%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  font-weight: 400;
+  line-height: 1.2;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Styles spéciaux pour différents types de contact */
+.contact-content .email {
+  font-family: 'Monaco', 'Menlo', monospace;
+  background-color: #f9fafb;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+
+.contact-content .social-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.contact-content .social-links a {
+  padding: 0.5rem 1rem;
+  background-color: #f3f4f6;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.contact-content .social-links a:hover {
+  background-color: #ea580c;
+  color: white;
+  border-bottom-color: transparent;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: clamp(1.3rem, 5vw, 2.2rem);
+  }
+  
+  .main-name {
+    font-size: clamp(1.8rem, 6vw, 3rem);
+  }
+  
+  .contact-content {
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    max-width: 95%;
+  }
+  
+  .contact-content .social-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .contact-title {
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+  }
+  
+  .main-name {
+    font-size: clamp(3.2rem, 4vw, 4.5rem);
+  }
+  
+  .contact-content {
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  }
+}
+</style>
+</section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      width: 960,
+      height: 700,
+      center: true,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      loop: false,
+      plugins: [ RevealHighlight, RevealNotes ]
+    }).then(() => {
+      // Force grid slides to fill the full slide area.
+      // reveal.js sets inline top/display for centering — override them.
+      document.querySelectorAll('section.has-grid').forEach(s => {
+        s.style.setProperty('top',     '0',     'important');
+        s.style.setProperty('display', 'block', 'important');
+        s.style.setProperty('height',  '100%',  'important');
+        s.style.setProperty('padding', '0',     'important');
+      });
+      // Render mermaid diagrams now that reveal.js is ready
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        securityLevel: 'loose',
+        flowchart: { useMaxWidth: true, htmlLabels: true, wrappingWidth: 200 }
+      });
+      mermaid.run({ querySelector: '.mermaid' });
+    });
+    // Also re-apply after each slide change (reveal may recalc layout)
+    Reveal.on('slidechanged', () => {
+      document.querySelectorAll('section.has-grid').forEach(s => {
+        s.style.setProperty('top',     '0',     'important');
+        s.style.setProperty('display', 'block', 'important');
+        s.style.setProperty('height',  '100%',  'important');
+        s.style.setProperty('padding', '0',     'important');
+      });
+    });
+  </script>
+
+</body>
+</html>
