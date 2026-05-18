@@ -889,7 +889,7 @@
 <div>
 <h3>La richesse</h3>
 <ul>
-<li><strong>53 élections</strong> de 1999 à 2024</li>
+<li><strong>53 élections</strong> de 1999 à 2026</li>
 <li><strong>~70 000 bureaux de vote</strong> par élection</li>
 <li>Données publiques, Ministère de l'Intérieur</li>
 <li>Granularité géographique unique en Europe</li>
@@ -3015,239 +3015,6 @@ L'outil s'efface — le journaliste peut se concentrer sur la question, pas sur 
 
 <section class="has-grid">
 
-<!-- Fond blanc pour toute la slide -->
-<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
-
-<!-- Image illustrative à droite (si présente) -->
-<div class="image-block" style="position: absolute; box-sizing: border-box; width: 45%; height: 100%; left: 60%; top: 0%; padding: 0 0 0 0; text-align: right;">
-  
-</div>
-
-<!-- Zone principale de contenu -->
-<div class="content-zone" style="position: absolute; box-sizing: border-box; width: 55%; height: 100%; left: 0%; top: 12%; padding: 0 20px 0 0; text-align: left;">
-  
-  <!-- Titre principal -->
-  <div class="main-title">
-    <h1>Démo live</h1>
-  </div>
-  
-  <!-- Sous-titre -->
-  <div class="subtitle">
-    <h2>Interface web d'André</h2>
-  </div>
-  
-  <!-- Date et contexte -->
-  <div class="date-context">
-    <p>~3 minutes</p>
-  </div>
-
-
-
-</div>
-
-<!-- Signature discrète en bas à gauche -->
-<div class="signature" style="position: absolute; box-sizing: border-box; width: 30%; height: 8%; left: 0%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
-  <div class="author-name">Joël Gombin</div>
-</div>
-
-<!-- Source optionnelle en bas à droite --> 
-<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 70%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;"> 
- 
-</div>
-
-
-
-<style>
-.image-block img, .slide-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.85;
-}
-
-.content-zone {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 80%;
-  gap: clamp(8px, 2vw, 20px);
-  max-height: 75vh;
-  overflow: visible;
-  padding: 5px 0;
-  min-height: fit-content;
-}
-
-.main-title {
-  color: #1f2937;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
-  font-weight: 800;
-  line-height: 1.0;
-  margin: 0;
-  letter-spacing: -0.02em;
-  max-width: 95%;
-  word-break: normal;
-  flex-shrink: 2;
-}
-
-.main-title h1, .main-title h2, .main-title p {
-  font-size: inherit !important;
-  font-weight: inherit !important;
-  line-height: inherit !important;
-  letter-spacing: inherit !important;
-  color: inherit !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  text-transform: none !important;
-  text-shadow: none !important;
-}
-
-
-.subtitle {
-  color: #ea580c;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.9rem, 2vw, 1.4rem);
-  font-weight: 500;
-  line-height: 1.2;
-  margin: 0;
-  max-width: 100%;
-  word-break: break-word;
-  flex-shrink: 1;
-}
-
-.date-context {
-  color: #6b7280;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.7rem, 1.5vw, 1rem);
-  font-weight: 400;
-  line-height: 1.3;
-  margin: 0;
-  opacity: 0.8;
-  flex-shrink: 0;
-  min-height: 1.3em;
-  order: 3;
-}
-
-.signature {
-  color: #6b7280;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
-  font-weight: 500;
-  opacity: 0.6;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.slide-source {
-  color: #9ca3af;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.6rem, 1vw, 0.8rem);
-  font-weight: 400;
-  line-height: 1.2;
-  font-style: italic;
-  opacity: 0.7;
-}
-
-/* Responsive pour petits écrans - PRIORITÉ à la date/contexte */
-@media (max-width: 768px) {
-  .content-zone {
-    gap: clamp(4px, 1.2vw, 12px);
-    max-height: 70vh;
-  }
-  
-  .main-title {
-    font-size: clamp(1.1rem, 4vw, 2rem);
-    line-height: 0.95;
-    flex-shrink: 2;
-  }
-  
-  .subtitle {
-    font-size: clamp(0.75rem, 2.5vw, 1.1rem);
-    line-height: 1.1;
-    flex-shrink: 1;
-  }
-  
-  .date-context {
-    font-size: clamp(0.65rem, 2.2vw, 0.9rem);
-    flex-shrink: 0;
-    font-weight: 500;
-  }
-  
-}
-
-/* Responsive pour très petits écrans - DATE EN PRIORITÉ ABSOLUE */
-@media (max-width: 480px) {
-  .content-zone {
-    gap: clamp(2px, 0.8vw, 8px);
-    max-height: 65vh;
-    justify-content: space-between;
-  }
-  
-  .main-title {
-    font-size: clamp(0.9rem, 4.5vw, 1.6rem);
-    line-height: 0.9;
-    flex-shrink: 3;
-  }
-  
-  
-  .subtitle {
-    font-size: clamp(0.65rem, 3vw, 0.95rem);
-    flex-shrink: 2;
-  }
-  
-  .date-context {
-    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
-    flex-shrink: 0;
-    font-weight: 600;
-    opacity: 1;
-  }
-  
-}
-
-/* Gestion des débordements de hauteur critique - DATE TOUJOURS VISIBLE */
-@media (max-height: 600px) {
-  .content-zone {
-    max-height: 80vh;
-    gap: clamp(2px, 0.8vw, 6px);
-    justify-content: flex-start;
-    padding-top: 3vh;
-  }
-  
-  .main-title {
-    font-size: clamp(1rem, 3.5vw, 1.8rem);
-    line-height: 0.85;
-    flex-shrink: 3;
-  }
-  
-  .subtitle {
-    font-size: clamp(0.7rem, 2.2vw, 1rem);
-    line-height: 1.0;
-    flex-shrink: 2;
-  }
-  
-  .date-context {
-    font-size: clamp(0.65rem, 2vw, 0.85rem);
-    flex-shrink: 0;
-    font-weight: 600;
-    opacity: 1;
-    background: rgba(255,255,255,0.9);
-    padding: 2px 4px;
-    border-radius: 3px;
-  }
-}
-</style>
-<aside class="notes">
-<p>Démonstration live de l'interface web. Suggestions de questions à poser :
-1. "Liste les élections disponibles" (simple, montre le tool use)
-2. "Analyse les résultats des législatives 2024 à Marseille, 2e circonscription" (complexe, montre le chaînage)
-3. "Compare avec 2022" (multi-tour, montre la mémoire de session)
-Prévoir un fallback en cas de problème réseau : capture d'écran vidéo ou terminal CLI.</p>
-</aside>
-</section>
-
-<section class="has-grid">
-
 <!-- Fond blanc sur toute la slide -->
 <div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
 
@@ -3275,7 +3042,7 @@ Prévoir un fallback en cas de problème réseau : capture d'écran vidéo ou te
 <h3>Les limites à ne pas oublier</h3>
 <ul>
 <li><strong>Coût</strong> : chaque analyse = tokens Anthropic (~0,05-0,50€)</li>
-<li><strong>Latence</strong> : 10-30s par analyse complexe</li>
+<li><strong>Latence</strong> : 10-60s par analyse complexe</li>
 <li><strong>Garde-fous nécessaires</strong> : l'agent fait confiance aux données</li>
 <li><strong>Pas de raisonnement causal</strong> : corrélations, pas explications</li>
 <li><strong>Opacité</strong> : difficile à auditer pour un tiers</li>
@@ -3571,7 +3338,7 @@ Prévoir un fallback en cas de problème réseau : capture d'écran vidéo ou te
   <!-- Contenu principal -->
   <div class="slide-content">
     <p><strong>Architecture :</strong>
-- Commencer par l'API (pas refactoriser après coup)
+- Commencer par les données puis l'API (pas refactoriser après coup)
 - Tester les pipelines de données AVANT d'écrire l'agent</p>
 <p><strong>Données :</strong>
 - Documenter les conventions de nommage dès le départ
@@ -3879,7 +3646,8 @@ Prévoir un fallback en cas de problème réseau : capture d'écran vidéo ou te
   
   <!-- Contenu des contacts -->
   <div class="contact-content">
-    <p><strong>Email :</strong> joel.gombin@gmail.com</p>
+    <p>https://andre.vote (voir aussi https://mcp.andre.vote)</p>
+<p><strong>Email :</strong> joel.gombin@gmail.com</p>
 <p><strong>LinkedIn :</strong> https://www.linkedin.com/in/jgombin/</p>
   </div>
   
