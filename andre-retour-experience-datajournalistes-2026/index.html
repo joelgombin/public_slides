@@ -1194,38 +1194,35 @@
   
   <!-- Contenu principal -->
   <div class="slide-content">
-    <p><grid drag="46 78" drop="0 20"></p>
+    <div class="two-columns">
+<div>
 <p><strong>Script classique</strong></p>
-<pre><code class="language-r"># Une question = un script
-bv &lt;- read_parquet(
-  &quot;2024_legi_t1.parquet&quot;)
+<pre><code class="language-r">bv &lt;- read_parquet(&quot;legi_2024.parquet&quot;)
 marseille &lt;- bv |&gt;
   filter(code_commune == &quot;13055&quot;)
 # ... 50 lignes de manipulation
 </code></pre>
 <ul>
-<li><strong>Fixe</strong> : codé pour une question précise</li>
-<li>Nécessite de savoir quoi chercher</li>
+<li><strong>Fixe</strong> : une question = un script</li>
+<li>Faut savoir exactement quoi chercher</li>
 <li>Long à adapter</li>
 </ul>
-<p></grid></p>
-<p><grid drag="46 78" drop="54 20"></p>
+</div>
+<div>
 <p><strong>Agent avec tool use</strong></p>
-<pre><code>Moi : &quot;Réserves de voix du bloc
-       de gauche à Marseille ?&quot;
-
-André : [query_elections 2024]
-        [query_elections 2022]
-        [query_elections 2019]
-        &quot;Dans les 10 BDV où la
-         gauche était ≥ 35%...&quot;
+<pre><code>→ &quot;Réserves de voix gauche
+    à Marseille ?&quot;
+← [query 2024] [query 2022]
+   [query 2019] → synthèse
+← &quot;Dans les 10 BDV ≥ 35%...&quot;
 </code></pre>
 <ul>
 <li><strong>Flexible</strong> : langage naturel</li>
 <li>Chaîne les requêtes seul</li>
 <li>S'adapte au contexte</li>
 </ul>
-<p></grid></p>
+</div>
+</div>
   </div>
   
 </div>
