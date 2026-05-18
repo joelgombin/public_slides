@@ -1,0 +1,4109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>andre-retour-experience-datajournalistes-2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/monokai.css">
+  
+  <style>
+    /* Base overrides for better rendering */
+    .reveal { font-family: 'Inter', sans-serif; }
+    .reveal section { position: relative; }
+    .reveal section img { max-width: 100%; height: auto; }
+    /* Grid slides: force full-size positioning context */
+    .reveal .slides section.has-grid {
+      height: 100% !important;
+      width: 100% !important;
+      top: 0 !important;
+      left: 0 !important;
+      display: block !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      overflow: hidden;
+    }
+    .reveal pre { width: 100%; }
+    .reveal pre code { max-height: 500px; }
+    /* Two/three column layout */
+    .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .three-columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; align-items: start; }
+    /* Mermaid container */
+    .mermaid { text-align: center; }
+    .mermaid svg { max-width: 100%; height: auto; }
+    /* Fragment list support */
+    .fragment-list li { opacity: 0; }
+    .fragment-list li.visible { opacity: 1; }
+    /* Details/summary for sources */
+    details { font-size: 0.6em; opacity: 0.7; margin-top: 0.5em; }
+    details summary { cursor: pointer; }
+    @media (max-width: 768px) {
+      .two-columns, .three-columns { grid-template-columns: 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section class="has-grid">
+
+<!-- Fond blanc pour toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Image illustrative à droite (si présente) -->
+<div class="image-block" style="position: absolute; box-sizing: border-box; width: 45%; height: 100%; left: 60%; top: 0%; padding: 0 0 0 0; text-align: right;">
+  
+</div>
+
+<!-- Zone principale de contenu -->
+<div class="content-zone" style="position: absolute; box-sizing: border-box; width: 55%; height: 100%; left: 0%; top: 12%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre principal -->
+  <div class="main-title">
+    <h1>André — retour d'expérience</h1>
+  </div>
+  
+  <!-- Sous-titre -->
+  <div class="subtitle">
+    <h2>Construire un assistant IA pour l'analyse électorale</h2>
+  </div>
+  
+  <!-- Date et contexte -->
+  <div class="date-context">
+    <p>Datajournos • 18 mai 2026</p>
+  </div>
+
+
+
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 30%; height: 8%; left: 0%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <div class="author-name">Joël Gombin</div>
+</div>
+
+<!-- Source optionnelle en bas à droite --> 
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 70%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;"> 
+ 
+</div>
+
+
+
+<style>
+.image-block img, .slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.content-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%;
+  gap: clamp(8px, 2vw, 20px);
+  max-height: 75vh;
+  overflow: visible;
+  padding: 5px 0;
+  min-height: fit-content;
+}
+
+.main-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.0;
+  margin: 0;
+  letter-spacing: -0.02em;
+  max-width: 95%;
+  word-break: normal;
+  flex-shrink: 2;
+}
+
+.main-title h1, .main-title h2, .main-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+
+.subtitle {
+  color: #ea580c;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  max-width: 100%;
+  word-break: break-word;
+  flex-shrink: 1;
+}
+
+.date-context {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+  opacity: 0.8;
+  flex-shrink: 0;
+  min-height: 1.3em;
+  order: 3;
+}
+
+.signature {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  font-weight: 400;
+  line-height: 1.2;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans - PRIORITÉ à la date/contexte */
+@media (max-width: 768px) {
+  .content-zone {
+    gap: clamp(4px, 1.2vw, 12px);
+    max-height: 70vh;
+  }
+  
+  .main-title {
+    font-size: clamp(1.1rem, 4vw, 2rem);
+    line-height: 0.95;
+    flex-shrink: 2;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+    line-height: 1.1;
+    flex-shrink: 1;
+  }
+  
+  .date-context {
+    font-size: clamp(0.65rem, 2.2vw, 0.9rem);
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+  
+}
+
+/* Responsive pour très petits écrans - DATE EN PRIORITÉ ABSOLUE */
+@media (max-width: 480px) {
+  .content-zone {
+    gap: clamp(2px, 0.8vw, 8px);
+    max-height: 65vh;
+    justify-content: space-between;
+  }
+  
+  .main-title {
+    font-size: clamp(0.9rem, 4.5vw, 1.6rem);
+    line-height: 0.9;
+    flex-shrink: 3;
+  }
+  
+  
+  .subtitle {
+    font-size: clamp(0.65rem, 3vw, 0.95rem);
+    flex-shrink: 2;
+  }
+  
+  .date-context {
+    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+    flex-shrink: 0;
+    font-weight: 600;
+    opacity: 1;
+  }
+  
+}
+
+/* Gestion des débordements de hauteur critique - DATE TOUJOURS VISIBLE */
+@media (max-height: 600px) {
+  .content-zone {
+    max-height: 80vh;
+    gap: clamp(2px, 0.8vw, 6px);
+    justify-content: flex-start;
+    padding-top: 3vh;
+  }
+  
+  .main-title {
+    font-size: clamp(1rem, 3.5vw, 1.8rem);
+    line-height: 0.85;
+    flex-shrink: 3;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.7rem, 2.2vw, 1rem);
+    line-height: 1.0;
+    flex-shrink: 2;
+  }
+  
+  .date-context {
+    font-size: clamp(0.65rem, 2vw, 0.85rem);
+    flex-shrink: 0;
+    font-weight: 600;
+    opacity: 1;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+}
+</style>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Qui suis-je ?</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><strong>Joël Gombin</strong></p>
+<ul>
+<li>Analyses électorales depuis 2005 (mais je suis retraité)</li>
+<li>Cofondateur et dirigeant jusqu'en 2024 de Datactivist (open data)</li>
+<li>Builder et consultant IA à la Plateforme depuis 2024</li>
+<li>Cofondateur d'une nouvelle boite dans l'urbanisme règlementaire (Kutsh)</li>
+<li>André : projet personnel de R&amp;D</li>
+</ul>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>Se présenter rapidement. Insister sur le fait que c'est un retour d'expérience honnête — avec les réussites ET les limites. Public technique donc pas besoin de vulgariser les concepts de base.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>La question de départ</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <blockquote>
+<p><em>"Peut-on démocratiser l'analyse des données électorales à une échelle fine ? "</em></p>
+</blockquote>
+<p><strong>Ce qui me prend plusieurs heures aujourd'hui :</strong>
+- Charger les données d'un bureau de vote spécifique
+- Calculer les réserves de voix par rapport à plusieurs élections précédentes
+- Croiser avec les données socio-démographiques
+- Rédiger une synthèse interprétable</p>
+<p><strong>Réponse courte :</strong> oui — mais avec des garde-fous.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>C'est la question honnête qui a lancé le projet. Pas "révolutionner le journalisme électoral" mais résoudre un problème concret de workflow. Cette honnêteté va plaire à un public technique. Expliquer que la réponse courte est "oui" mais que le diable est dans les détails — c'est ce dont on va parler.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Les données électorales françaises</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="two-columns">
+<div>
+<h3>La richesse</h3>
+<ul>
+<li><strong>53 élections</strong> de 1999 à 2024</li>
+<li><strong>~70 000 bureaux de vote</strong> par élection</li>
+<li>Données publiques, Ministère de l'Intérieur</li>
+<li>Granularité géographique unique en Europe</li>
+<li>Croisements possibles : socio-démo, géographie, historique</li>
+</ul>
+</div>
+<div>
+<h3>La complexité</h3>
+<ul>
+<li>Formats de fichiers changeants d'une élection à l'autre (merci data.gouv pour l'homogénéisation !)</li>
+<li><strong>Identifiants de BDV instables</strong> (changent entre scrutins)</li>
+<li><strong>Nuances politiques</strong> : ~90 codes à interpréter</li>
+<li>pas d'API officielle, téléchargement manuel</li>
+</ul>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>Deux minutes pour montrer pourquoi ces données sont à la fois précieuses et difficiles à exploiter. Les journalistes techniques vont reconnaître le problème classique des données publiques riches mais non-standardisées. Les BDV sont particulièrement intéressants car ils permettent des analyses infra-communales qu'on ne peut pas faire avec des données agrégées. Donner un exemple concret : Marseille avec 16 arrondissements → des centaines de BDV, des comportements électoraux très différents d'un quartier à l'autre.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Script R vs agent IA — le changement de paradigme</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><grid drag="46 78" drop="0 20"></p>
+<p><strong>Script classique</strong></p>
+<pre><code class="language-r"># Une question = un script
+bv &lt;- read_parquet(
+  &quot;2024_legi_t1.parquet&quot;)
+marseille &lt;- bv |&gt;
+  filter(code_commune == &quot;13055&quot;)
+# ... 50 lignes de manipulation
+</code></pre>
+<ul>
+<li><strong>Fixe</strong> : codé pour une question précise</li>
+<li>Nécessite de savoir quoi chercher</li>
+<li>Long à adapter</li>
+</ul>
+<p></grid></p>
+<p><grid drag="46 78" drop="54 20"></p>
+<p><strong>Agent avec tool use</strong></p>
+<pre><code>Moi : &quot;Réserves de voix du bloc
+       de gauche à Marseille ?&quot;
+
+André : [query_elections 2024]
+        [query_elections 2022]
+        [query_elections 2019]
+        &quot;Dans les 10 BDV où la
+         gauche était ≥ 35%...&quot;
+</code></pre>
+<ul>
+<li><strong>Flexible</strong> : langage naturel</li>
+<li>Chaîne les requêtes seul</li>
+<li>S'adapte au contexte</li>
+</ul>
+<p></grid></p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>C'est le cœur du talk pour un public technique. Expliquer que le "tool use" est la vraie révolution : le LLM ne génère pas de réponse depuis ses paramètres, il appelle des outils réels (base de données, calculs) et synthétise les résultats. La différence avec le RAG classique. Insister sur "autonome" : l'agent décide lui-même quelles requêtes chaîner pour répondre à une question complexe.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Architecture d'André</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="three-columns">
+<div>
+<h3>Données</h3>
+<ul>
+<li><strong>DuckDB</strong> + Parquet</li>
+<li>~53 élections × ~70K BDV</li>
+<li>Vues pré-calculées (EPCI, dpts, régions)</li>
+<li>Données socio-démo INSEE</li>
+<li>Contours géographiques (GeoParquet)</li>
+</ul>
+</div>
+<div>
+<h3>Outils (MCP)</h3>
+<ul>
+<li><code>query_elections</code> — résultats par BDV, commune, canton</li>
+<li><code>query_admin</code> — divisions administratives</li>
+<li><code>query_elus</code> — élus (BRÉF/RNE)</li>
+<li><code>query_sociodem</code> — profil INSEE BDV</li>
+<li><code>export_data</code> — export CSV/JSON</li>
+</ul>
+</div>
+<div>
+<h3>Interface</h3>
+<ul>
+<li><strong>SDK Claude Agent</strong> (Anthropic)</li>
+<li>Skills (ACP, reports de voix, méthodo à la P. Martin...)</li>
+<li><strong>API REST</strong> FastAPI + SSE streaming</li>
+<li><strong>Frontend</strong> Next.js</li>
+<li>Déploiement : Docker + CapRover</li>
+</ul>
+</div>
+</div>
+<p>:::</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>Vue d'ensemble architecturale. Public technique donc on peut aller vite. L'important : trois couches clairement séparées. Le MCP (Model Context Protocol) est le point original — c'est le mécanisme qui permet au LLM d'appeler des outils de façon structurée sans permission manuelle. Les "skills" sont des fichiers markdown qui injectent du contexte métier (méthodologie électorale) dans le contexte du LLM. Montrer que c'est du code Python standard sous le capot — rien de magique.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Défi 1 — Qualité des données</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><strong>Problème :</strong> les données électorales publiques sont riches mais imparfaites</p>
+<ul>
+<li>Doublons dans les Européennes (plusieurs lignes par candidat)</li>
+<li>Identifiants de bureaux de vote instables entre scrutins</li>
+<li>Nuances politiques parfois absentes ou incohérentes</li>
+</ul>
+<p><strong>Solution :</strong></p>
+<pre><code class="language-python"># Règle de validation systématique dans le code
+assert 20_000_000 &lt; total_voix_national &lt; 50_000_000, \
+    f&quot;Résultat suspect : {total_voix_national}&quot;
+</code></pre>
+<blockquote>
+<p>Valider les <strong>magnitudes</strong> avant chaque réponse : le total des votes nationaux doit toujours être entre 20M et 50M. Si ce n'est pas le cas → bug de JOIN ou doublon.</p>
+</blockquote>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>Exemple concret et immédiatement compréhensible pour des journalistes data. Expliquer que cette règle a sauvé plusieurs analyses. La validation des magnitudes est une technique simple mais très efficace pour attraper les bugs silencieux dans les pipelines de données. Mentionner que c'est inspiré des pratiques data engineering (data quality checks). L'idée : ne pas laisser l'agent répondre sur des données potentiellement erronées.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Défi 2 — Hallucinations et garde-fous</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><strong>Problème :</strong> un LLM peut "interpréter librement" des données électorales</p>
+<p>Exemple imaginaire mais plausible :</p>
+<blockquote>
+<p>"Le RN a progressé dans ce bureau car c'est une zone ouvrière en désindustrialisation"</p>
+</blockquote>
+<p>C'est peut-être vrai. Ou peut-être une invention cohérente...</p>
+<p><strong>Garde-fous d'André :</strong></p>
+<ul>
+<li>les agrégations par famille politique sont précodées</li>
+<li>des principes d'analyse sont posés (travailler de préférence aux inscrits, comparer entre scrutins identiques...)</li>
+<li>l'agent "voit" les cartes</li>
+<li>mais on ne peut pas garantir à 100% l'absence d'interprétations hasardeuses</li>
+</ul>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>C'est le garde-fou dont je suis le plus fier. Les nuances politiques sont des données officielles précises — les remapper vers des familles politiques est une décision éditoriale, pas un calcul. André refuse de le faire automatiquement car c'est une interprétation politique, pas factuelle. Expliquer la distinction : calculer (que fait André) vs interpréter (que fait le journaliste). C'est aussi un garde-fou contre les biais potentiels du LLM sur les questions politiques.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Défi 3 — Du CLI perso au service web</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><strong>Ce que j'attendais :</strong> ajouter une API sur un outil CLI existant, ~2h</p>
+<p><strong>Ce que j'ai trouvé :</strong></p>
+<ul>
+<li>Sessions multi-tour : state management non-trivial</li>
+<li><strong>SSE streaming</strong> : envoyer les tokens au fur et à mesure (UX critique)</li>
+<li>Thread-safety : requêtes concurrentes sur des sessions différentes</li>
+<li>Docker multi-stage pour un build reproductible</li>
+<li>Déploiement continu : push GitHub → CapRover automatique</li>
+</ul>
+<p><strong>Leçon :</strong> le passage de "ça marche sur ma machine" à "ça marche pour d'autres" sous-estime toujours les problèmes d'infrastructure.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>Anecdote honnête sur la sous-estimation. Le streaming SSE est crucial pour l'UX des agents — sans ça, l'utilisateur attend 30 secondes devant un écran vide. Expliquer brièvement pourquoi les sessions sont complexes : l'agent garde un contexte de conversation, il faut un lock asyncio pour éviter les race conditions. L'audience technique va apprécier ces détails concrets.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Le moment "ça a vraiment marché"</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <blockquote>
+<p>*L'agent a produit et interprété des ACP de bonne qualité</p>
+</blockquote>
+<p><strong>Ce que ça change :</strong>
+L'outil s'efface — le journaliste peut se concentrer sur la question, pas sur la manipulation des données.</p>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>[COMPLÉTER avec l'exemple concret que tu as en tête — quel bureau de vote, quelle élection, quelle question tu posais]. C'est la diapo émotionnelle du talk — le moment où l'outil devient utile. Insister sur "le même niveau de rigueur" : ce n'est pas un résumé approximatif, c'est un calcul précis avec les vraies données. La méthodologie Pierre Martin injectée via le système de skills.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc pour toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Image illustrative à droite (si présente) -->
+<div class="image-block" style="position: absolute; box-sizing: border-box; width: 45%; height: 100%; left: 60%; top: 0%; padding: 0 0 0 0; text-align: right;">
+  
+</div>
+
+<!-- Zone principale de contenu -->
+<div class="content-zone" style="position: absolute; box-sizing: border-box; width: 55%; height: 100%; left: 0%; top: 12%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre principal -->
+  <div class="main-title">
+    <h1>Démo live</h1>
+  </div>
+  
+  <!-- Sous-titre -->
+  <div class="subtitle">
+    <h2>Interface web d'André</h2>
+  </div>
+  
+  <!-- Date et contexte -->
+  <div class="date-context">
+    <p>~3 minutes</p>
+  </div>
+
+
+
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 30%; height: 8%; left: 0%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <div class="author-name">Joël Gombin</div>
+</div>
+
+<!-- Source optionnelle en bas à droite --> 
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 70%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;"> 
+ 
+</div>
+
+
+
+<style>
+.image-block img, .slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.content-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%;
+  gap: clamp(8px, 2vw, 20px);
+  max-height: 75vh;
+  overflow: visible;
+  padding: 5px 0;
+  min-height: fit-content;
+}
+
+.main-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.0;
+  margin: 0;
+  letter-spacing: -0.02em;
+  max-width: 95%;
+  word-break: normal;
+  flex-shrink: 2;
+}
+
+.main-title h1, .main-title h2, .main-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+
+.subtitle {
+  color: #ea580c;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  max-width: 100%;
+  word-break: break-word;
+  flex-shrink: 1;
+}
+
+.date-context {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+  opacity: 0.8;
+  flex-shrink: 0;
+  min-height: 1.3em;
+  order: 3;
+}
+
+.signature {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  font-weight: 400;
+  line-height: 1.2;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans - PRIORITÉ à la date/contexte */
+@media (max-width: 768px) {
+  .content-zone {
+    gap: clamp(4px, 1.2vw, 12px);
+    max-height: 70vh;
+  }
+  
+  .main-title {
+    font-size: clamp(1.1rem, 4vw, 2rem);
+    line-height: 0.95;
+    flex-shrink: 2;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+    line-height: 1.1;
+    flex-shrink: 1;
+  }
+  
+  .date-context {
+    font-size: clamp(0.65rem, 2.2vw, 0.9rem);
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+  
+}
+
+/* Responsive pour très petits écrans - DATE EN PRIORITÉ ABSOLUE */
+@media (max-width: 480px) {
+  .content-zone {
+    gap: clamp(2px, 0.8vw, 8px);
+    max-height: 65vh;
+    justify-content: space-between;
+  }
+  
+  .main-title {
+    font-size: clamp(0.9rem, 4.5vw, 1.6rem);
+    line-height: 0.9;
+    flex-shrink: 3;
+  }
+  
+  
+  .subtitle {
+    font-size: clamp(0.65rem, 3vw, 0.95rem);
+    flex-shrink: 2;
+  }
+  
+  .date-context {
+    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+    flex-shrink: 0;
+    font-weight: 600;
+    opacity: 1;
+  }
+  
+}
+
+/* Gestion des débordements de hauteur critique - DATE TOUJOURS VISIBLE */
+@media (max-height: 600px) {
+  .content-zone {
+    max-height: 80vh;
+    gap: clamp(2px, 0.8vw, 6px);
+    justify-content: flex-start;
+    padding-top: 3vh;
+  }
+  
+  .main-title {
+    font-size: clamp(1rem, 3.5vw, 1.8rem);
+    line-height: 0.85;
+    flex-shrink: 3;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.7rem, 2.2vw, 1rem);
+    line-height: 1.0;
+    flex-shrink: 2;
+  }
+  
+  .date-context {
+    font-size: clamp(0.65rem, 2vw, 0.85rem);
+    flex-shrink: 0;
+    font-weight: 600;
+    opacity: 1;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+}
+</style>
+<aside class="notes">
+<p>Démonstration live de l'interface web. Suggestions de questions à poser :
+1. "Liste les élections disponibles" (simple, montre le tool use)
+2. "Analyse les résultats des législatives 2024 à Marseille, 2e circonscription" (complexe, montre le chaînage)
+3. "Compare avec 2022" (multi-tour, montre la mémoire de session)
+Prévoir un fallback en cas de problème réseau : capture d'écran vidéo ou terminal CLI.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Ce que ça change pour le datajournalisme</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <div class="two-columns">
+<div>
+<h3>Pour le praticien</h3>
+<ul>
+<li>Accès à des données complexes <strong>sans friction technique</strong></li>
+<li>Les BDV deviennent accessibles sans Python/SQL</li>
+<li>Plus de temps pour l'interprétation, moins pour la manipulation</li>
+<li>Mémoire méthodologique intégrée (skills)</li>
+</ul>
+</div>
+<div>
+<h3>Les limites à ne pas oublier</h3>
+<ul>
+<li><strong>Coût</strong> : chaque analyse = tokens Anthropic (~0,05-0,50€)</li>
+<li><strong>Latence</strong> : 10-30s par analyse complexe</li>
+<li><strong>Garde-fous nécessaires</strong> : l'agent fait confiance aux données</li>
+<li><strong>Pas de raisonnement causal</strong> : corrélations, pas explications</li>
+<li><strong>Opacité</strong> : difficile à auditer pour un tiers</li>
+</ul>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>Équilibrer honnêtement. Les journalistes techniques vont apprécier la liste des limites — c'est ce qui manque souvent dans les présentations sur l'IA. Insister sur "pas de raisonnement causal" : André peut dire "dans ce bureau, le RN a 12 points de plus qu'en 2022" mais pas "parce que". L'interprétation causale reste un travail humain et éditorial.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+<!-- Fond blanc sur toute la slide -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Conteneur principal -->
+<div class="slide-container" style="position: absolute; box-sizing: border-box; width: 90%; height: 80%; left: 5%; top: 5%; padding: 0 20px 0 0; text-align: left;">
+  
+  <!-- Titre de la slide -->
+  <div class="slide-title-wrapper" data-has-title="true">
+    <div class="slide-title"><h1>Ce que j'aurais fait différemment</h1></div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div class="slide-content">
+    <p><strong>Architecture :</strong>
+- Commencer par l'API (pas refactoriser après coup)
+- Tester les pipelines de données AVANT d'écrire l'agent</p>
+<p><strong>Données :</strong>
+- Documenter les conventions de nommage dès le départ
+- Mettre les validations de magnitudes dès le premier jour</p>
+<p><strong>IA :</strong>
+- Définir les garde-fous métier AVANT de coder les features
+- Écrire les instructions de l'agent ("CLAUDE.md") avant le code</p>
+<blockquote>
+<p><em>Un agent est aussi bon que ses instructions et ses données — pas plus.</em></p>
+</blockquote>
+  </div>
+  
+</div>
+
+<!-- Signature discrète en bas à gauche -->
+<div class="signature" style="position: absolute; box-sizing: border-box; width: 25%; height: 6%; left: 5%; top: 92%; padding: 0 0 0 0; text-align: left; display: flex; flex-direction: column; justify-content: flex-end;">
+  <p>Joël Gombin</p>
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 0 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: clamp(15px, 2.5vw, 25px);
+}
+
+.slide-title-wrapper {
+  flex-shrink: 0;
+}
+
+.slide-title-wrapper[data-has-title="false"] {
+  display: none;
+}
+
+.slide-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.slide-title h1, .slide-title h2, .slide-title p {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+}
+
+.slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ea580c;
+  border-radius: 2px;
+}
+
+.slide-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Styles pour les listes */
+.slide-content ul, .slide-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.slide-content li {
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.slide-content ul li::marker {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* Styles pour les titres dans le contenu */
+.slide-content h1, .slide-content h2 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.slide-content h1 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+.slide-content h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #ea580c;
+}
+
+.slide-content h3 {
+  color: #374151;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  margin: 0.8em 0 0.4em 0;
+}
+
+
+/* Styles pour les liens */
+.slide-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* Support pour les colonnes */
+.slide-content .two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.slide-content .three-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Diagrammes Mermaid — remplir l'espace restant sans déborder */
+.mermaid {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.mermaid > svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Mermaid : texte plus lisible et descentes non tronquées */
+.mermaid .node foreignObject {
+  overflow: visible !important;
+}
+
+.mermaid .node foreignObject > div {
+  color: #1f2937 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Mermaid : edge labels lisibles sur fond blanc */
+.mermaid .edgeLabel {
+  background-color: white !important;
+  color: #374151 !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: white !important;
+}
+
+.mermaid .edgeLabel span {
+  color: #374151 !important;
+  background: white !important;
+}
+
+/* Code et éléments techniques */
+.slide-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.slide-content pre {
+  background-color: #f9fafb;
+  border-left: 4px solid #ea580c;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Citations */
+.slide-content blockquote {
+  border-left: 4px solid #ea580c;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.signature {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  font-weight: 500;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .slide-content .two-columns,
+  .slide-content .three-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .slide-title {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .slide-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+  
+  .slide-content {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  }
+}
+</style>
+<aside class="notes">
+<p>Slide optionelle si le temps le permet. Leçons honnêtes pour un public qui voudrait faire la même chose. La dernière phrase est le vrai message à retenir : les LLM ne compensent pas un mauvais pipeline de données ou des instructions floues.</p>
+</aside>
+</section>
+
+<section class="has-grid">
+
+
+<!-- Fond blanc avec accent orange subtil -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 100%; left: 0%; top: 0%; background-color: white;"></div>
+
+<!-- Barre orange subtile en haut -->
+<div style="position: absolute; box-sizing: border-box; width: 100%; height: 3%; left: 0%; top: 0%; background-color: #ea580c;"></div>
+
+<!-- Conteneur principal centré -->
+<div class="contact-container" style="position: absolute; box-sizing: border-box; width: 80%; height: 80%; left: 10%; top: 10%; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+  <!-- Titre principal -->
+  <div class="contact-title">
+    Merci pour votre attention
+  </div>
+  
+  <!-- Nom principal -->
+  <div class="main-name">
+    Joël Gombin
+  </div>
+  
+  <!-- Contenu des contacts -->
+  <div class="contact-content">
+    <p><strong>Email :</strong> joel.gombin@gmail.com</p>
+<p><strong>LinkedIn :</strong> https://www.linkedin.com/in/jgombin/</p>
+  </div>
+  
+  <!-- Message de clôture optionnel -->
+  <div class="closing-message">
+    <p>Des questions ?</p>
+  </div>
+
+</div>
+
+<!-- Source optionnelle en bas à droite -->
+<div class="slide-source" style="position: absolute; box-sizing: border-box; width: 35%; height: 6%; left: 60%; top: 92%; padding: 0 10px 0 0; text-align: right; display: flex; flex-direction: column; justify-content: flex-end;">
+  
+</div>
+
+<style>
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  gap: clamp(20px, 4vw, 40px);
+}
+
+.contact-title {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.main-name {
+  color: #ea580c;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.contact-content {
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.0rem, 2vw, 1.4rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 90%;
+}
+
+.contact-content p {
+  margin: 0.5em 0;
+}
+
+.contact-content a {
+  color: #ea580c;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 0.2s ease;
+}
+
+.contact-content a:hover {
+  border-bottom-color: #ea580c;
+}
+
+/* Styles pour les icônes et informations de contact */
+.contact-content .contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+}
+
+.contact-content .contact-item::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: #ea580c;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.closing-message {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+  font-style: italic;
+  opacity: 0.8;
+  max-width: 80%;
+}
+
+.slide-source {
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  font-weight: 400;
+  line-height: 1.2;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Styles spéciaux pour différents types de contact */
+.contact-content .email {
+  font-family: 'Monaco', 'Menlo', monospace;
+  background-color: #f9fafb;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+
+.contact-content .social-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.contact-content .social-links a {
+  padding: 0.5rem 1rem;
+  background-color: #f3f4f6;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.contact-content .social-links a:hover {
+  background-color: #ea580c;
+  color: white;
+  border-bottom-color: transparent;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: clamp(1.3rem, 5vw, 2.2rem);
+  }
+  
+  .main-name {
+    font-size: clamp(1.8rem, 6vw, 3rem);
+  }
+  
+  .contact-content {
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    max-width: 95%;
+  }
+  
+  .contact-content .social-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+}
+
+/* Optimisation pour grands écrans */
+@media (min-width: 1200px) {
+  .contact-title {
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+  }
+  
+  .main-name {
+    font-size: clamp(3.2rem, 4vw, 4.5rem);
+  }
+  
+  .contact-content {
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  }
+}
+</style>
+</section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      width: 960,
+      height: 700,
+      center: true,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      loop: false,
+      plugins: [ RevealHighlight, RevealNotes ]
+    }).then(() => {
+      // Force grid slides to fill the full slide area.
+      // reveal.js sets inline top/display for centering — override them.
+      document.querySelectorAll('section.has-grid').forEach(s => {
+        s.style.setProperty('top',     '0',     'important');
+        s.style.setProperty('display', 'block', 'important');
+        s.style.setProperty('height',  '100%',  'important');
+        s.style.setProperty('padding', '0',     'important');
+      });
+    });
+    // Also re-apply after each slide change (reveal may recalc layout)
+    Reveal.on('slidechanged', () => {
+      document.querySelectorAll('section.has-grid').forEach(s => {
+        s.style.setProperty('top',     '0',     'important');
+        s.style.setProperty('display', 'block', 'important');
+        s.style.setProperty('height',  '100%',  'important');
+        s.style.setProperty('padding', '0',     'important');
+      });
+    });
+  </script>
+
+</body>
+</html>
